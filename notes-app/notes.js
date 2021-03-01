@@ -1,5 +1,6 @@
 const fs = require('fs');
 const chalk = require('chalk');
+const { log } = require('console');
 
 const getNotes = () => "Your notes....";
 
@@ -7,7 +8,7 @@ function addNote(title, body) {
     const noteArr = loadNotes();
     // const duplicateNotes = noteArr.filter((note) => note.title.toLowerCase() === title.toLowerCase());
     const duplicateNote = noteArr.find((note) => note.title.toLowerCase() === title.toLowerCase())
-    
+    debugger 
     if (!duplicateNote){
         noteArr.push({
             title: title,
