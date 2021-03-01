@@ -4,22 +4,22 @@ const getNotes = function () {
     return "Your notes....";
 }
 
-const addNote = function (title, body) {
-    const noteArr = loadNotes();
-    const duplicateNotes  = noteArr.filter(function (note) {
-        return note.title.toLowerCase() === title.toLowerCase();
-    })
-    if(duplicateNotes.length===0){
-    noteArr.push({
-        title: title,
-        body: body
-    })
-    saveNotes(noteArr);
-    console.log(chalk.green.inverse('new note add!'));
-    }else{
-        console.log(chalk.red.inverse('Note title taken..'));
-    }
-}
+// const addNote = function (title, body) {
+//     const noteArr = loadNotes();
+//     const duplicateNotes  = noteArr.filter(function (note) {
+//         return note.title.toLowerCase() === title.toLowerCase();
+//     })
+//     if(duplicateNotes.length===0){
+//     noteArr.push({
+//         title: title,
+//         body: body
+//     })
+//     saveNotes(noteArr);
+//     console.log(chalk.green.inverse('new note add!'));
+//     }else{
+//         console.log(chalk.red.inverse('Note title taken..'));
+//     }
+// }
 const removeNote = function (title) {
      const noteArr = loadNotes();
      let noteToKeep =  noteArr.filter(n => { 
