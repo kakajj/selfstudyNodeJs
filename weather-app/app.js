@@ -7,15 +7,14 @@ const address = process.argv[2];
 if (!address){
     console.log('no address found');
 }else{
-    geoCode(address, (error, data) => {
+    geoCode(address, (error, {latitude,longtitude}={}) => {
         if (error) {
             console.log('Error ', error);
         } else {
-            forecast(data.latitude, data.longtitude, (error, data) => {
+            forecast(latitude,longtitude, (error, data) => {
                 if (error) {
                     console.log('Error', error)
                 } else {
-    
                     console.log('Data', data);
                 }
             });

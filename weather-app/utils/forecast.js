@@ -4,17 +4,17 @@ const request = require("postman-request");
 // สร้างฟังก์ชั่นที่สมบูรณ์แบบ
 const forecast = (lati,longti,callback)=>{
     const url = `http://api.weatherstack.com/current?access_key=ad06d583e42ea75dd35231ca63a90baf&query=${lati},${longti}`;
-    request({url:url,json:true},(error,response)=>{
+    request({url:url,json:true},(error,{body}={})=>{
         if(error){
             callback('Unable to connect to weather service',undefined);
-        }else if(response.body.error){
+        }else if(body.error){
             callback('Unable to find location',undefined);
         }else{
             callback(undefined,{
-                location: response.body.location.region,
-                weather : response.body.current.weather_descriptions,
-                currentTem: response.body.current.temperature,
-                feelslike : response.body.current.feelslike
+                location: body.location.region,
+                weather : body.current.weather_descriptions[0],
+                currentTem: body.current.temperature,
+                feelslike : body.current.feelslike
             });
         };
     })
