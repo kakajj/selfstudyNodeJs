@@ -1,5 +1,3 @@
-const request = require('postman-request');
-const chalk = require('chalk');
 const geoCode = require('./utils/geocode.js');
 const forecast = require('./utils/forecast.js');
 
