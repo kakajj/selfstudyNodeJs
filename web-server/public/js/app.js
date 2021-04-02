@@ -19,7 +19,7 @@ const msg2 = document.querySelector('#msg2')
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const url = 'http://localhost:3000/weather?address=' + input.value;
+    const url = '/weather?address=' + input.value;
     msg1.textContent = 'loading....';
     msg2.textContent = '';
     fetch(url).then((response) => {
