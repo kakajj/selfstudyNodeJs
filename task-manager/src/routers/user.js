@@ -2,11 +2,28 @@ const express = require('express')
 const User = require('../models/user')
 const router = express.Router();
 
+
+// router for sign-up 
+router.post('/users/login',async (req,res)=>{
+    try {
+        const user = await User.findByCredential(req.body.email,req.body.password);
+        const token = await user.generateAuthToken();
+        res.send({user, token});
+    } catch (e) {
+        res.status(400).send();
+    }
+});
+
+
 router.post('/users', async (req, res) => {
     const user = new User(req.body);
     try {
-        await user.save();
-        res.status(201).send(user)
+       
+        await user.save()
+        const userWithToken = await user.generateAuthToken();
+
+        res.status(201).send({user,userWithToken})
+        
     } catch (error) {
         res.status(400).send(error);
     }
@@ -53,10 +70,20 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        })
+        // if we use this code, when updating, the middleware like decryptjs cant work
+        // cause mongoose bypass it 
+
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+        //     new: true,
+        //     runValidators: true
+        // })
+
+        // so we need to dynamic update manualy after find it by ID...
+        const user = await User.findById(req.params.id) 
+        update.forEach((update)=> user[update] = req.body[update])
+        await user.save();
+
+
         if (!user) {
             return res.status(404).send();
         }
